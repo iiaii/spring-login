@@ -18,4 +18,11 @@ public class Member {
     @NotEmpty
     private String password;
 
+    public boolean isEqualPassword(final String password) {
+        return password.equals(this.password);
+    }
+
+    public boolean isEqualId(final String loginId) {
+        return loginId.equals(this.loginId);
+    }
 }
