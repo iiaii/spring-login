@@ -25,7 +25,7 @@ public class MemberController {
     @PostMapping("/add")
     public String save(@Valid @ModelAttribute final Member member, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "members/addMemberForm";
+            return "member/addMemberForm";
         }
 
         memberRepository.save(member);
