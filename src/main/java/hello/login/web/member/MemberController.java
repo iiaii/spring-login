@@ -19,13 +19,13 @@ public class MemberController {
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute("member") final Member member) {
-        return "member/addMemberForm";
+        return "members/addMemberForm";
     }
 
     @PostMapping("/add")
     public String save(@Valid @ModelAttribute final Member member, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "member/addMemberForm";
+            return "members/addMemberForm";
         }
 
         memberRepository.save(member);

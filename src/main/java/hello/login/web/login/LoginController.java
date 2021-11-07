@@ -41,8 +41,7 @@ public class LoginController {
         }
 
         // 로그인 성공처리 (브라우저 종료시 쿠키 삭제)
-        Cookie idCookie = new Cookie("memberId", String.valueOf(member.getId()));
-        response.addCookie(idCookie);
+        response.addCookie(new Cookie("memberId", String.valueOf(member.getId())));
 
         return "redirect:/";
     }
