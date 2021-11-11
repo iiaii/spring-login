@@ -40,10 +40,18 @@ public class SessionManager {
 
 
     public Object getSession(final HttpServletRequest request) {
-        Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
-        return Optional.ofNullable(sessionCookie)
+        Cookie cookie = findCookie(request, SESSION_COOKIE_NAME);
+        return Optional.ofNullable(cookie)
+                .map(Cookie::getValue)
                 .map(sessionStore::get)
                 .orElse(null);
+    }
+
+    public void expire(final HttpServletRequest request) {
+        Cookie cookie = findCookie(request, SESSION_COOKIE_NAME);
+        if (Objects.nonNull(cookie)) {
+            sessionStore.remove(cookie.getValue());
+        }
     }
 
     public Cookie findCookie(final HttpServletRequest request, final String cookieName) {
@@ -52,8 +60,11 @@ public class SessionManager {
             return null;
         }
         return Arrays.stream(cookies)
-                .filter(cookie -> cookie.getName().equals(SESSION_COOKIE_NAME))
+                .filter(cookie -> cookie.getName().equals(cookieName))
                 .findAny()
                 .orElse(null);
     }
+
+
+
 }
